@@ -1,4 +1,4 @@
-import { AppBar, Tabs, Tab } from '@material-ui/core';
+import Container from '@material-ui/core/Container/Container';
 import React, { useState } from 'react';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
@@ -13,13 +13,13 @@ type UserAuthenticationProps = {
 function UserAuthenticationComponent(props: UserAuthenticationProps) {
     const [value, setValue] = useState(0);
 
-    const handleChange = (e: React.ChangeEvent<{}>, newValue: number) => {
+    const handleChange = (newValue: number) => {
         setValue(newValue);
     };
 
     const generateForm = () => {
         if (value === 0) {
-            return (<LoginForm handleLogin={props.handleLogin} />)
+            return (<LoginForm handleLogin={props.handleLogin} signUp={handleChange} />)
         }
         else {
             return (<SignupForm handleSignup={props.handleSignup} />)
@@ -27,14 +27,10 @@ function UserAuthenticationComponent(props: UserAuthenticationProps) {
     }
 
     return (
-        <div className="authenticate-component">
-            <AppBar position="static" >
-                <Tabs value={value} onChange={handleChange} centered>
-                    <Tab label="Log In" />
-                    <Tab label="Sign Up" />
-                </Tabs>
-            </AppBar>
-            {generateForm()}
+        <div className="AuthenticateComponent">
+            <Container maxWidth="xs">
+                {generateForm()}
+            </Container>
         </div >
     );
 }
