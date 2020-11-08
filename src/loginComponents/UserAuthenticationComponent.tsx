@@ -5,6 +5,10 @@ import SignupForm from './SignupForm';
 
 import './UserAuthenticationComponent.scss'
 
+export const SIGN_UP_AUTHENTICATION = 1;
+
+export const LOG_IN_AUTHENTICATION = 0;
+
 type UserAuthenticationProps = {
     handleLogin: Function,
     handleSignup: Function
@@ -18,11 +22,11 @@ function UserAuthenticationComponent(props: UserAuthenticationProps) {
     };
 
     const generateForm = () => {
-        if (value === 0) {
-            return (<LoginForm handleLogin={props.handleLogin} signUp={handleChange} />)
+        if (value === LOG_IN_AUTHENTICATION) {
+            return (<LoginForm handleLogin={props.handleLogin} changeDisplayedForm={handleChange} />)
         }
         else {
-            return (<SignupForm handleSignup={props.handleSignup} />)
+            return (<SignupForm handleSignup={props.handleSignup} changeDisplayedForm={handleChange} />)
         }
     }
 

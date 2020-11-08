@@ -1,8 +1,22 @@
+import Avatar from '@material-ui/core/Avatar/Avatar';
+import Button from '@material-ui/core/Button/Button';
+import Checkbox from '@material-ui/core/Checkbox/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
+import Grid from '@material-ui/core/Grid/Grid';
+import Link from '@material-ui/core/Link/Link';
+import TextField from '@material-ui/core/TextField/TextField';
+import Typography from '@material-ui/core/Typography/Typography';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React from 'react';
+
+import { LOG_IN_AUTHENTICATION } from './UserAuthenticationComponent';
+
+import './SignupForm.scss'
 
 type SignupProps = {
     handleSignup: Function
+    changeDisplayedForm: Function
 };
 
 export type SignupState = {
@@ -51,75 +65,132 @@ class SignupForm extends React.Component<SignupProps, SignupState> {
         }
     }
 
-    handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const name = e.target.name;
-        const value = e.target.checked;
+    handleLogin = (e: React.MouseEvent) => {
+        e.preventDefault();
+        this.props.changeDisplayedForm(LOG_IN_AUTHENTICATION);
+    }
+
+    handleSubmit = (e: React.MouseEvent) => {
+        e.preventDefault();
+        this.props.handleSignup(e, this.state)
+    }
+
+
+    handleCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        let checked = e.target.checked;
+        let name = e.target.name;
         switch (name) {
             case 'isTeacher':
-                this.setState({ is_teacher: value });
+                this.setState({ is_teacher: checked });
                 break
             case 'isStudent':
-                this.setState({ is_student: value });
+                this.setState({ is_student: checked });
                 break
         }
     }
 
     render() {
         return (
-            <form onSubmit={e => this.props.handleSignup(e, this.state)}>
-                <FormGroup>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                        value={this.state.username}
-                        onChange={this.handleChange}
-                    />
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                    />
-                    <label htmlFor="email">Email Address</label>
-                    <input
-                        type="text"
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                    />
-                    <label htmlFor="firstName">First Name</label>
-                    <input
-                        type="text"
-                        name="firstName"
-                        value={this.state.first_name}
-                        onChange={this.handleChange}
-                    />
-                    <label htmlFor="lastName">Last Name</label>
-                    <input
-                        type="text"
-                        name="lastName"
-                        value={this.state.last_name}
-                        onChange={this.handleChange}
-                    />
-                    <label htmlFor="isTeacher">I am a teacher</label>
-                    <input
-                        type="checkbox"
-                        name="isTeacher"
-                        value={this.state.last_name}
-                        onChange={this.handleToggle}
-                    />
-                    <label htmlFor="isStudent">I am a student</label>
-                    <input
-                        type="checkbox"
-                        name="isStudent"
-                        value={this.state.last_name}
-                        onChange={this.handleToggle}
-                    />
-                    <input type="submit" value="Sign Up" />
-                </FormGroup>
-            </form>)
+            <div className="SignupFormComponent">
+                <Avatar className="SignupFormComponentAvatar">
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign up
+                </Typography>
+                <form className="SignupForm">
+                    <FormGroup>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            name="username"
+                            onChange={this.handleChange}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="password"
+                            label="Password"
+                            type="password"
+                            name="password"
+                            onChange={this.handleChange}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email"
+                            name="email"
+                            onChange={this.handleChange}
+                        />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="fname"
+                                    name="firstName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    onChange={this.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                    onChange={this.handleChange}
+                                />
+                            </Grid>
+                        </Grid>
+                        <FormGroup row>
+                            <FormControlLabel
+                                control={<Checkbox checked={this.state.is_student} onChange={this.handleCheckBoxChange} name="isStudent" />}
+                                label="I am a student"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={this.state.is_teacher} onChange={this.handleCheckBoxChange} name="isTeacher" />}
+                                label="I am a teacher"
+                            />
+                        </FormGroup>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className="SignupFormButton"
+                            onClick={this.handleSubmit}
+                        >
+                            Sign In
+                        </Button>
+                    </FormGroup>
+                </form>
+                <Grid container justify="flex-end">
+                    <div className='SignupFormOptionsBar'>
+                        <Grid item>
+                            <Link variant="body2" onClick={this.handleLogin}>
+                                Already have an account? Sign in
+                        </Link>
+                        </Grid>
+                    </div>
+                </Grid>
+            </div>
+        );
     }
 }
 

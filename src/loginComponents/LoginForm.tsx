@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import React from 'react';
 
+import { SIGN_UP_AUTHENTICATION } from './UserAuthenticationComponent'
+
 import './LoginForm.scss'
 
 export type LoginState = {
@@ -19,7 +21,7 @@ export type LoginState = {
 type LoginProps = {
     //TODO: Bad practice, fix later
     handleLogin: Function;
-    signUp: Function;
+    changeDisplayedForm: Function;
 }
 
 class LoginForm extends React.Component<LoginProps, LoginState> {
@@ -54,7 +56,7 @@ class LoginForm extends React.Component<LoginProps, LoginState> {
 
     handleSignUp = (e: React.MouseEvent) => {
         e.preventDefault();
-        this.props.signUp(1);
+        this.props.changeDisplayedForm(SIGN_UP_AUTHENTICATION);
     }
 
 
@@ -67,7 +69,7 @@ class LoginForm extends React.Component<LoginProps, LoginState> {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className="LoginForm" onSubmit={e => this.props.handleLogin(e, this.state.username, this.state.password, this.passwordCallback)}>
+                <form className="LoginForm">
                     <FormGroup>
 
                         <TextField
