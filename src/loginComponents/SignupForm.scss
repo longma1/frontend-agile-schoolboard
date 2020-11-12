@@ -1,0 +1,22 @@
+.SignupFormComponent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .SignupForm{
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .SignupFormOptionsBar{
+        margin-top: 20px;
+    }
+    
+    .SignupFormComponentAvatar{
+        background-color: red;
+    }
+
+    .SignupFormButton{
+        margin-top:10px;
+    }
+}
