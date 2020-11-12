@@ -2,6 +2,7 @@ import React from 'react';
 import connectionManager from './apiComponents/ConnectionManager'
 import UserAuthenticationComponent from './loginComponents/UserAuthenticationComponent'
 import { SignupState } from './loginComponents/SignupForm'
+import MainApp from './coreAppComponents/MainApp';
 
 type AppState = {
     signedOn: Boolean
@@ -62,7 +63,7 @@ class App extends React.Component<{}, AppState> {
         return (
             <div className='App'>
                 {
-                    this.state.signedOn ? 'hello user' :
+                    this.state.signedOn ? <MainApp /> :
                         <UserAuthenticationComponent
                             handleLogin={this.handleLogin}
                             handleSignup={this.handleSignup}
