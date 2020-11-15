@@ -1,4 +1,5 @@
 import React from "react";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import NavigationBarComponent from "../navigationComponents/NavigationBarComponent";
 import NavigationSideBarComponent from "../navigationComponents/NavigationSideBarComponent";
 
@@ -25,17 +26,28 @@ class MainApp extends React.Component<{}, AppState> {
     render() {
         return (
             <div className="MainAppContainer">
-                <NavigationBarComponent
-                    handleOpen={this.handleOpenDrawer}
-                    isOpen={this.state.drawerOpen}
-                />
-                <NavigationSideBarComponent
-                    isOpen={this.state.drawerOpen}
-                    closeSideBar={this.handleCloseDrawer}
-                />
-                <div className={this.state.drawerOpen ? "MainApplicationComponent MainApplicationComponentSideBarOpen" : "MainApplicationComponent"}>
-                    Lorem ipsum dolor sit amet
-                </div>
+                <Router>
+                    <NavigationBarComponent
+                        handleOpen={this.handleOpenDrawer}
+                        isOpen={this.state.drawerOpen}
+                    />
+                    <NavigationSideBarComponent
+                        isOpen={this.state.drawerOpen}
+                        closeSideBar={this.handleCloseDrawer}
+                    />
+                    <div className={this.state.drawerOpen ? "MainApplicationComponent MainApplicationComponentSideBarOpen" : "MainApplicationComponent"}>
+
+                        <Switch>
+                            <Route exact path="/">
+                                Home
+                        </Route>
+                            <Route path="/topics">
+                                topics
+                        </Route>
+                        </Switch>
+
+                    </div>
+                </Router>
             </div>
 
         )

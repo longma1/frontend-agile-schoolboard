@@ -1,7 +1,6 @@
 import { SignupState } from "../loginComponents/SignupForm";
 
 class ConnectionManager {
-    static url = process.env.API_ADDRESS; //From environment file
     private token = localStorage.getItem('token') ? localStorage.getItem('token') : ''; // In case it was saved from previous tabs
     private expiration = localStorage.getItem('expiration'); // Expiration time of the token
     private expirationDate = this.expiration === null ? null : new Date(this.expiration); // Expiration time from date
