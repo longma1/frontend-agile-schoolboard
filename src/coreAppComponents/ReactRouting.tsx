@@ -1,6 +1,17 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-} from "react-router-dom";
+import { Switch, Route } from 'react-router-dom';
+import AgileBoardComponent from '../agileBoardComponents/AgileBoardComponent';
 
+const reactRouting = () => (
+    <Switch>
+        <Route exact path="/">
+            Home
+        </Route>
+        <Route path="/board">
+            <AgileBoardComponent />
+        </Route>
+    </Switch>
+)
+
+
+export default reactRouting()

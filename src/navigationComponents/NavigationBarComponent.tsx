@@ -36,7 +36,7 @@ class NavigationBarComponent extends React.Component<NavigationBarProps, {}>{
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Persistent drawer
+                        #TODO: name this app
                 </Typography>
                 </Toolbar>
             </ AppBar>

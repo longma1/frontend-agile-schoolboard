@@ -1,9 +1,10 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import NavigationBarComponent from "../navigationComponents/NavigationBarComponent";
 import NavigationSideBarComponent from "../navigationComponents/NavigationSideBarComponent";
 
 import "./MainApp.scss";
+import ReactRouting from "./ReactRouting";
 
 type AppState = {
     drawerOpen: boolean
@@ -36,16 +37,7 @@ class MainApp extends React.Component<{}, AppState> {
                         closeSideBar={this.handleCloseDrawer}
                     />
                     <div className={this.state.drawerOpen ? "MainApplicationComponent MainApplicationComponentSideBarOpen" : "MainApplicationComponent"}>
-
-                        <Switch>
-                            <Route exact path="/">
-                                Home
-                        </Route>
-                            <Route path="/topics">
-                                topics
-                        </Route>
-                        </Switch>
-
+                        {ReactRouting}
                     </div>
                 </Router>
             </div>

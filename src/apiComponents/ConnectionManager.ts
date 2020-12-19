@@ -69,12 +69,12 @@ class ConnectionManager {
      * @param callback {Function} Function called after the get request is completed, called with the response json
      * @param tokenRequired {Boolean} Specify if the JWT token needs to be included in the request
      */
-    getApi(url: string, callback: Function, override: Boolean): void {
+    getApi(url: string, callback: Function, tokenRequired: Boolean = true): void {
         this.checkTokenExpiration();
 
         fetch(
             url,
-            override ? {
+            tokenRequired ? {
                 headers: {
                     Authorization: `JWT ${this.token}`
                 }
@@ -82,6 +82,30 @@ class ConnectionManager {
         )
             .then(res => res.json())
             .then(json => callback(json));
+    }
+
+    postApi(url: string, data: any, callback: Function, tokenRequired: Boolean = true): void {
+        this.checkTokenExpiration();
+
+        fetch(
+            url,
+            tokenRequired ? {
+                method: 'POST',
+                headers: {
+                    Authorization: `JWT ${this.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            } : {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
+        )
+            .then(res => res.json())
+            .then(json => callback(json.result));
     }
 
     /**
